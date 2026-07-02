@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Where Are You on the Unbound Journey? · Women Unbound Digital</title>
+  <meta name="description" content="Take the free 5-question quiz and discover your next step toward living unbound. Women Unbound Digital." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose: #B8677A;
+      --rose-dark: #6B3A4A;
+      --rose-light: #FDF0F3;
+      --rose-border: #E8B4BF;
+      --blush: #F5ECE9;
+      --text: #2C1A22;
+      --text-secondary: #7A5A64;
+      --text-muted: #B09CA4;
+      --border: rgba(180,130,145,0.2);
+      --border-strong: rgba(180,130,145,0.35);
+      --surface: #ffffff;
+      --surface-soft: #FAF5F6;
+      --radius: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--blush);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .site-header {
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+      border-bottom: 0.5px solid var(--rose-border);
+      background: var(--surface);
+    }
+    .site-header .wordmark {
+      font-family: 'Jost', sans-serif;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: .3rem;
+    }
+    .site-header .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 12px;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2.5rem 1rem 4rem;
+    }
+
+    .quiz-wrap {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    /* ── Hero ── */
+    .quiz-hero {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .quiz-hero .stage-label {
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: .6rem;
+    }
+    .quiz-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: .6rem;
+    }
+    .quiz-hero h1 em { font-style: italic; color: var(--rose); }
+    .quiz-hero p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Progress ── */
+    .progress-wrap {
+      height: 2px;
+      background: var(--border-strong);
+      border-radius: 2px;
+      margin-bottom: 1.75rem;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 2px;
+      background: var(--rose);
+      border-radius: 2px;
+      transition: width .5s ease;
+    }
+
+    /* ── Stage badge ── */
+    .stage-badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--rose-light);
+      border: 0.5px solid var(--rose-border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 1rem;
+    }
+    .stage-badge span {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose-dark);
+    }
+
+    /* ── Question card ── */
+    .q-card {
+      background: var(--surface);
+      border: 0.5px solid var(--rose-border);
+      border-radius: 14px;
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+    }
+    .q-num {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: .75rem;
+      display: block;
+    }
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 3vw, 19px);
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Options ── */
+    .opts { display: flex; flex-direction: column; gap: 10px; }
+    .opt {
+      background: var(--surface-soft);
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: border-color .2s, background .2s;
+      width: 100%;
+    }
+    .opt:hover { border-color: var(--rose); background: var(--rose-light); }
+    .opt.sel { border-color: var(--rose); background: var(--rose-light); }
+    .opt.sel .opt-text { color: var(--rose-dark); }
+    .opt-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--border-strong);
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: var(--surface);
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .opt.sel .opt-dot {
+      background: var(--rose);
+      border-color: var(--rose);
+    }
+    .opt.sel .opt-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    /* ── Navigation ── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .step-ct { font-size: 12px; color: var(--text-muted); }
+    .btn-next {
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 12px 28px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: .05em;
+      transition: background .2s;
+    }
+    .btn-next:hover { background: var(--rose-dark); }
+    .btn-next:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-back {
+      background: transparent;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 12px 20px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-back:hover { border-color: var(--rose); color: var(--rose); }
+
+    /* ── Result ── */
+    .result-card {
+      background: var(--surface);
+      border: 0.5px solid var(--rose-border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+    .result-stage {
+      font-size: 10px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      text-align: center;
+      margin-bottom: .5rem;
+    }
+    .result-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 4vw, 24px);
+      font-weight: 400;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: .3rem;
+    }
+    .result-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-style: italic;
+      color: var(--text-secondary);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Journey map */
+    .journey-map {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .jm-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      flex: 1;
+      max-width: 90px;
+    }
+    .jm-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--border-strong);
+      transition: all .3s;
+    }
+    .jm-dot.done { background: var(--rose-border); }
+    .jm-dot.active { background: var(--rose); transform: scale(1.5); }
+    .jm-label {
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: .06em;
+      text-align: center;
+      line-height: 1.3;
+      font-family: 'Jost', sans-serif;
+    }
+    .jm-label.active { color: var(--rose); font-weight: 500; }
+    .jm-connector {
+      height: 1px;
+      background: var(--border-strong);
+      flex: 1;
+      margin-top: 10px;
+      align-self: flex-start;
+    }
+
+    .result-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .divider { height: 0.5px; background: var(--rose-border); margin: 1.5rem 0; }
+
+    .optin-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .optin-label strong { color: var(--text); font-weight: 500; }
+
+    .inp {
+      width: 100%;
+      border: 0.5px solid var(--border-strong);
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--surface-soft);
+      margin-bottom: 10px;
+      transition: border-color .2s;
+    }
+    .inp:focus { outline: none; border-color: var(--rose); }
+    .inp::placeholder { color: var(--text-muted); }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--rose);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 15px;
+      font-family: 'Jost', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      letter-spacing: .06em;
+      transition: background .2s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover { background: var(--rose-dark); }
+
+    .privacy {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: .75rem;
+      line-height: 1.6;
+    }
+
+    /* ── Success ── */
+    .success-wrap {
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .success-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--rose-light);
+      border: 1px solid var(--rose-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--rose);
+    }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: .5rem;
+    }
+    .success-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+    .next-box {
+      background: var(--rose-light);
+      border: 0.5px solid var(--rose-border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      text-align: left;
+      margin-bottom: 1.25rem;
+    }
+    .next-box-label {
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--rose);
+      display: block;
+      margin-bottom: .35rem;
+    }
+    .next-box-text {
+      font-size: 13px;
+      color: var(--rose-dark);
+      line-height: 1.6;
+    }
+    .btn-shop {
+      display: inline-block;
+      background: transparent;
+      border: 0.5px solid var(--rose);
+      color: var(--rose);
+      border-radius: var(--radius);
+      padding: 11px 24px;
+      font-family: 'Jost', sans-serif;
+      font-size: 13px;
+      letter-spacing: .05em;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .btn-shop:hover { background: var(--rose); color: #fff; }
+
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      border-top: 0.5px solid var(--rose-border);
+      background: var(--surface);
+    }
+    .site-footer p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .site-footer a { color: var(--rose); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      .q-card { padding: 1.5rem; }
+      .result-card { padding: 1.5rem; }
+      .opt { font-size: 13px; padding: 12px 14px; }
+      .jm-label { font-size: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <span class="wordmark">Women Unbound Digital</span>
+    <span class="tagline">Tools for women who are done shrinking.</span>
+  </header>
+
+  <main class="page">
+    <div class="quiz-wrap">
+
+      <div class="quiz-hero">
+        <span class="stage-label">Stage 01 · Discover</span>
+        <h1>Where are you on the <em>Unbound Journey?</em></h1>
+        <p>5 questions · find your next step toward living unbound</p>
+      </div>
+
+      <div id="quiz-body"></div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; 2026 Women Unbound Digital &nbsp;·&nbsp;
+      <a href="https://womenunbounddigital.com">womenunbounddigital.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://womenunbounddigital.com/privacy-policy">Privacy Policy</a>
+    </p>
+  </footer>
+
+  <script>
+    const MAILERLITE_API = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI0IiwianRpIjoiMjc3YjNmMTlhYjAyOTgwMzk4MzkxYjc3MTFlMWJkODcwNTg4ZWFjZDJjYzRkMmEyM2NkZGY2OWMyNTdhYzcxZjliZWJhZDY1ZDNjNmI3MmEiLCJpYXQiOjE3ODI1MDk2MDEuMTIxOTE5LCJuYmYiOjE3ODI1MDk2MDEuMTIxOTIyLCJleHAiOjQ5MzgxODMyMDEuMTE3OTI1LCJzdWIiOiIyMzk0NDc3Iiwic2NvcGVzIjpbXX0.nwUhcsHMlPE35UCaY3ULKGDZkJBFKdDP3i1oVWqqOBVkkcvLWItk8r_TFfMeyp7ZXG8YZdA0lTm4B_6QE8OcDPhHdWMsZH2gL-7oa-Hj22M-wOxzC7bBwcJXINVYeugUUCDeAow6QiqGs7udSjlISuYPx98nu8IfyhnJKTBklkSqgRt7CPCDRlEyhyEnZFpyz33SNwAzXks08ORQzSoOoIK_FaKPHMmwdhh-uVk3WwIqHf_fB2W9URIs1AyQzFWn1j3DNZqPBp-HikkX-wWYEAA6bWPsl0wj77htdr_dM-KoCXCetpNto7yZQO9YjcMeRFoFK3-5_q5UrVZcA-ivgIDGZQUFQuZMekz6MSA5sERbYhOq7h0WOSRmrdLtlvPzrnbp5GsdWGc_zyE_VISb6t3XiSoBJVLT3l9vnIvSceVvHtyXS_XSpaRtBYsiVXz6KaP5iSXMIrfD_ZfoA8fky7bRVFDzUPWhhVkSApEFfXD7cXjC1zg4jjYuXe9DjRB9hT6bqckqJdie28yWsDiROumYvF7IqNzcSlbq03s_VFocVOPTNNvK9hnbR4ToRup4GT-tXaO-AfTNPwNyXBzYU1SGHs1KzfwGJancJGEKrVwL75QwBwY_ZjsdnYg9SBC3ms39B94RnlcqGWE6mxuOvbzlZvgPra0dGny6GJAdF90';
+    const MAILERLITE_GROUP_ID = '191375878799754651';
+
+    const questions = [
+      {
+        text: "When you picture the woman you want to become, the biggest thing standing between you and her is…",
+        opts: [
+          { t: "Not truly believing you're the kind of woman who gets to have that life", s: "unlearn" },
+          { t: "A version of yourself that feels stuck in who everyone else needed you to be", s: "reclaim" },
+          { t: "Knowing who you want to be but not yet knowing how to build toward her", s: "become" },
+          { t: "Already doing the work — but craving a deeper, more aligned way of living", s: "unbound" }
+        ]
+      },
+      {
+        text: "The voice in your head that holds you back most often sounds like…",
+        opts: [
+          { t: "\"You don't deserve that yet. Earn it first.\"", s: "unlearn" },
+          { t: "\"You've forgotten who you really are.\"", s: "reclaim" },
+          { t: "\"You know what you want — but starting still feels impossible.\"", s: "become" },
+          { t: "\"Something still feels off, even when everything looks right from the outside.\"", s: "unbound" }
+        ]
+      },
+      {
+        text: "When someone close to you challenges a choice you've made for yourself, you usually…",
+        opts: [
+          { t: "Question whether they're right — and wonder if you're being selfish", s: "unlearn" },
+          { t: "Feel the pull of the old version of you, the one who always put others first", s: "reclaim" },
+          { t: "Stand your ground, but notice the decision still costs you energy it shouldn't", s: "become" },
+          { t: "Hold your boundary — but feel a quiet longing for deeper alignment in your life", s: "unbound" }
+        ]
+      },
+      {
+        text: "The chapter of your life you feel most in right now is…",
+        opts: [
+          { t: "Early — still untangling what's mine and what was handed to me", s: "unlearn" },
+          { t: "The middle — rediscovering myself after years of shrinking", s: "reclaim" },
+          { t: "Building — I know who I am, I'm figuring out what I'm building", s: "become" },
+          { t: "Deepening — I've done the inner work and I'm ready for what's next", s: "unbound" }
+        ]
+      },
+      {
+        text: "The resource that would serve you most right now is…",
+        opts: [
+          { t: "Something that helps me name and release the beliefs I've carried for too long", s: "unlearn" },
+          { t: "A guide that helps me come back to myself — my values, my voice, my identity", s: "reclaim" },
+          { t: "A framework for building the next version of my life with intention", s: "become" },
+          { t: "A deeper program or community for women who are already living this work", s: "unbound" }
+        ]
+      }
+    ];
+
+    const results = {
+      unlearn: {
+        stage: "Stage 02 · Unlearn",
+        title: "You are ready to unlearn.",
+        subtitle: "Release what was never yours.",
+        desc: "The beliefs you're carrying weren't born in you — they were handed to you. By family, culture, relationships, and the story of who you were supposed to be. Your Unbound Journey begins with naming them and, one by one, setting them down. The Unlearning Starter Guide was written for exactly where you are.",
+        activeStep: 1,
+        offer: "Your free Unlearning Starter Guide is waiting.",
+        nextText: "Your next step is Stage 02 — Unlearn. Explore the Unlearning Collection at womenunbounddigital.com",
+        tag: "unlearn"
+      },
+      reclaim: {
+        stage: "Stage 03 · Reclaim",
+        title: "You are ready to reclaim.",
+        subtitle: "Remember who you are.",
+        desc: "You've spent years editing yourself for rooms that were never yours to shrink for. Something in you remembers a version of yourself that felt more whole — more true. Your next step on the Unbound Journey is coming home to her.",
+        activeStep: 2,
+        offer: "Start with the Unlearning Starter Guide — it's free and it begins here.",
+        nextText: "Your next step is Stage 03 — Reclaim. Explore the Self-Reclamation Collection at womenunbounddigital.com",
+        tag: "reclaim"
+      },
+      become: {
+        stage: "Stage 04 · Become",
+        title: "You are ready to become.",
+        subtitle: "Step into the woman you're becoming.",
+        desc: "You've done enough inner work to know who you're not. Now you're building toward who you are. This is the chapter of creation — choosing your life on purpose, with full ownership of your values, your direction, and your becoming.",
+        activeStep: 3,
+        offer: "Start with the Unlearning Starter Guide — the foundation for everything you're building.",
+        nextText: "Your next step is Stage 04 — Become. Explore the Becoming Collection at womenunbounddigital.com",
+        tag: "become"
+      },
+      unbound: {
+        stage: "Stage 05 · Live Unbound",
+        title: "You are ready to live unbound.",
+        subtitle: "Create a life aligned with your authentic self.",
+        desc: "You're not at the beginning of this journey — you're deepening it. You've unlearned, reclaimed, and built. Now you're looking for a life that doesn't just feel better — it feels like yours.",
+        activeStep: 4,
+        offer: "Start with the Unlearning Starter Guide — a gift for every woman on this journey.",
+        nextText: "Your next step is Stage 05 — Live Unbound. Explore the Unbound Series at womenunbounddigital.com",
+        tag: "unbound"
+      }
+    };
+
+    const stageLabels = ["Discover", "Unlearn", "Reclaim", "Become", "Live Unbound"];
+
+    let cur = 0, ans = [], resultKey = null;
+
+    function tally() {
+      const c = {};
+      ans.forEach((ai, qi) => {
+        const s = questions[qi].opts[ai].s;
+        c[s] = (c[s] || 0) + 1;
+      });
+      return Object.entries(c).sort((a, b) => b[1] - a[1])[0][0];
+    }
+
+    function render() {
+      const body = document.getElementById('quiz-body');
+      if (cur < questions.length) {
+        const q = questions[cur];
+        const pct = (cur / questions.length) * 100;
+        body.innerHTML = `
+          <div class="progress-wrap"><div class="progress-fill" style="width:${pct}%"></div></div>
+          <div class="stage-badge"><span>Stage 01 · Discover</span></div>
+          <div class="q-card">
+            <span class="q-num">Question ${cur + 1} of ${questions.length}</span>
+            <p class="q-text">${q.text}</p>
+            <div class="opts">
+              ${q.opts.map((o, i) => `
+                <button class="opt${ans[cur] === i ? ' sel' : ''}" onclick="pick(${i})">
+                  <span class="opt-dot"></span>
+                  <span class="opt-text">${o.t}</span>
+                </button>`).join('')}
+            </div>
+          </div>
+          <div class="nav">
+            ${cur > 0 ? `<button class="btn-back" onclick="back()">Back</button>` : `<span></span>`}
+            <span class="step-ct">${cur + 1} / ${questions.length}</span>
+            <button class="btn-next" id="bnext" onclick="next()" ${ans[cur] === undefined ? 'disabled' : ''}>Continue →</button>
+          </div>`;
+      } else {
+        showResult();
+      }
+    }
+
+    function pick(i) { ans[cur] = i; render(); }
+    function next() { if (ans[cur] !== undefined) { cur++; render(); } }
+    function back() { if (cur > 0) { cur--; render(); } }
+
+    function showResult() {
+      resultKey = tally();
+      const r = results[resultKey];
+      const body = document.getElementById('quiz-body');
+
+      const jmHTML = stageLabels.map((label, i) => {
+        const isLast = i === stageLabels.length - 1;
+        const dotClass = i === r.activeStep ? 'active' : i < r.activeStep ? 'done' : '';
+        const lblClass = i === r.activeStep ? 'active' : '';
+        return `
+          <div class="jm-item">
+            <div class="jm-dot ${dotClass}"></div>
+            <p class="jm-label ${lblClass}">${label}</p>
+          </div>
+          ${!isLast ? `<div class="jm-connector"></div>` : ''}`;
+      }).join('');
+
+      body.innerHTML = `
+        <div class="progress-wrap"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="result-card">
+          <span class="result-stage">${r.stage}</span>
+          <h2 class="result-title">${r.title}</h2>
+          <p class="result-sub">${r.subtitle}</p>
+          <div class="journey-map">${jmHTML}</div>
+          <p class="result-desc">${r.desc}</p>
+          <div class="divider"></div>
+          <p class="optin-label"><strong>${r.offer}</strong><br>Enter your details and it arrives in your inbox today.</p>
+          <input class="inp" type="text" id="fn" placeholder="First name" autocomplete="given-name" />
+          <input class="inp" type="email" id="fe" placeholder="Email address" autocomplete="email" />
+          <button class="btn-submit" onclick="submitForm()">Send my free guide →</button>
+          <p class="privacy">No spam, ever. Unsubscribe anytime. Your details go directly to Women Unbound Digital.<br>
+          <a href="https://womenunbounddigital.com/privacy-policy" style="color:var(--rose);text-decoration:none;">Privacy Policy</a></p>
+        </div>`;
+    }
+
+    function submitForm() {
+      const name = document.getElementById('fn').value.trim();
+      const email = document.getElementById('fe').value.trim();
+      if (!name || !email) {
+        alert('Please enter your name and email to receive your guide.');
+        return;
+      }
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+
+      const r = results[resultKey];
+      const btn = document.querySelector('.btn-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      fetch('https://connect.mailerlite.com/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + MAILERLITE_API
+        },
+        body: JSON.stringify({
+          email: email,
+          fields: {
+            name: name,
+            last_name: '',
+            unbound_stage: r.tag
+          },
+          groups: [MAILERLITE_GROUP_ID]
+        })
+      })
+      .then(res => {
+        showSuccess(name, email, r);
+      })
+      .catch(err => {
+        showSuccess(name, email, r);
+      });
+    }
+
+    function showSuccess(name, email, r) {
+      document.getElementById('quiz-body').innerHTML = `
+        <div class="result-card">
+          <div class="success-wrap">
+            <div class="success-icon">✦</div>
+            <h2 class="success-title">Welcome to the journey, ${name}.</h2>
+            <p class="success-sub">Your Unlearning Starter Guide is on its way to <strong>${email}</strong>.<br>Check your inbox — and your spam folder just in case.</p>
+            <div class="next-box">
+              <span class="next-box-label">Your next step</span>
+              <p class="next-box-text">${r.nextText}</p>
+            </div>
+            <a href="https://womenunbounddigital.com" class="btn-shop">Explore the full collection →</a>
+          </div>
+        </div>`;
+    }
+
+    render();
+  </script>
+
+</body>
+</html>
