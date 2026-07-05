@@ -724,6 +724,7 @@ src="https://www.facebook.com/tr?id=966690943004095&ev=PageView&noscript=1"
         })
       })
       .then(res => {
+        fbq('track', 'CompleteRegistration');
         showSuccess(name, email, r);
       })
       .catch(err => {
